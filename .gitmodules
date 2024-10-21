@@ -1,0 +1,3 @@
+[submodule "xilinx-docker"]
+	path = xilinx-docker
+	url = https://gitlab.com/rjmoss/xilinx-docker.git
