@@ -1,15 +1,5 @@
 FROM xilinx-ubuntu-20.04.4-user:v2023.2 AS build
 
-LABEL org.opencontainers.image.source https://github.com/ben-hawks/acord-dac-cicd
-LABEL org.opencontainers.image.path "images/2023-2.Dockerfile"
-LABEL org.opencontainers.image.title "acord-dac-cicd"
-LABEL org.opencontainers.image.version "v2023.2"
-LABEL org.opencontainers.image.description "A runner image for GitHub Actions with Vitis 2023.2 and related tools."
-LABEL org.opencontainers.image.authors "Ben Hawks (@ben-hawks)"
-LABEL org.opencontainers.image.licenses "MIT"
-LABEL org.opencontainers.image.documentation https://github.com/ben-hawks/acord-dac-cicd/README.md
-
-
 # Install Miniforge
 USER root
 RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" \
@@ -33,6 +23,16 @@ RUN conda-pack -n acord-dac-cicd -o /tmp/env.tar && \
 RUN /venv/bin/conda-unpack
 
 FROM xilinx-ubuntu-20.04.4-user:v2023.2 AS deploy
+
+LABEL org.opencontainers.image.source https://github.com/ben-hawks/acord-dac-cicd
+LABEL org.opencontainers.image.path "images/2023-2.Dockerfile"
+LABEL org.opencontainers.image.title "acord-dac-cicd"
+LABEL org.opencontainers.image.version "v2023.2"
+LABEL org.opencontainers.image.description "A runner image for GitHub Actions with Vitis 2023.2 and related tools."
+LABEL org.opencontainers.image.authors "Ben Hawks (@ben-hawks)"
+LABEL org.opencontainers.image.licenses "MIT"
+LABEL org.opencontainers.image.documentation https://github.com/ben-hawks/acord-dac-cicd/README.md
+
 USER root
 COPY --from=build --chown=xilinx /venv /venv
 
