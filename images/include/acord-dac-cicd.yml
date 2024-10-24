@@ -1,0 +1,20 @@
+name: acord-dac-cicd
+channels:
+  - conda-forge
+dependencies:
+  - cmake
+  - python=3.10
+  - pydot
+  - graphviz
+  - pytest
+  - pytest-cov
+  - pip
+  - pip:
+    - cocotb[bus]
+    - cocotbext-axi
+    - pytest-randomly
+    - onnx
+    - matplotlib
+    - pandas
+    - seaborn
+    - pyyaml
