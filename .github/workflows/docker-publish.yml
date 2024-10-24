@@ -86,9 +86,10 @@ jobs:
           context: .
           file: images/2023-2.Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}, 'v2023.2'
           labels: ${{ steps.meta.outputs.labels }}
           no-cache: True
+          target: deploy
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
