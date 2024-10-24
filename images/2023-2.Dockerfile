@@ -1,6 +1,5 @@
 FROM xilinx-ubuntu-20.04.4-user:v2023.2 AS build
 
-LABEL authors="bhawks"
 LABEL org.opencontainers.image.source https://github.com/ben-hawks/acord-dac-cicd
 LABEL org.opencontainers.image.path "images/2023-2.Dockerfile"
 LABEL org.opencontainers.image.title "acord-dac-cicd"
@@ -22,7 +21,7 @@ ENV PATH=/opt/conda/bin:$PATH
 #setups stuff
 RUN echo "source activate base" > ~/.bashrc
 #install packages
-COPY include/acord-dac-cicd.yml /tmp/acord-dac-cicd.yml
+COPY images/include/acord-dac-cicd.yml /tmp/acord-dac-cicd.yml
 RUN conda env create --name acord-dac-cicd --file /tmp/acord-dac-cicd.yml
 
 RUN conda install -y -c conda-forge conda-pack
@@ -78,11 +77,11 @@ RUN sudo apt-get update -y && \
     sudo rm -rf /var/lib/apt/lists/*
 
 # Install GitHub CLI
-COPY software/gh-cli.sh gh-cli.sh
+COPY images/software/gh-cli.sh gh-cli.sh
 RUN bash gh-cli.sh && rm gh-cli.sh
 
 # Install kubectl
-COPY software/kubectl.sh kubectl.sh
+COPY images/software/kubectl.sh kubectl.sh
 RUN bash kubectl.sh && rm kubectl.sh
 
 # Install helm
