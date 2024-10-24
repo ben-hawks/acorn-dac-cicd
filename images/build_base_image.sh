@@ -10,7 +10,7 @@ git submodule update --init --recursive
 cd xilinx-docker/recipes/user-images/v2023.2/ubuntu-20.04.4-user
 
 # build the base image
-pushd ../../base-images/ubuntu-20.04.4/
+pushd ../../../base-images/ubuntu-20.04.4/
 sudo ./fetch_depends.sh --iso
 sudo ./build_image.sh --iso
 popd
