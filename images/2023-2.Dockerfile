@@ -34,7 +34,7 @@ LABEL org.opencontainers.image.licenses "MIT"
 LABEL org.opencontainers.image.documentation https://github.com/ben-hawks/acord-dac-cicd/README.md
 
 USER root
-COPY --from=build --chown=xilinx /venv /venv
+COPY --from=build --chown=runner /venv /venv
 
 # Arguments
 ARG TARGETPLATFORM=amd64
