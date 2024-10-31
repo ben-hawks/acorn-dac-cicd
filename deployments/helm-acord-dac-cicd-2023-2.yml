@@ -32,7 +32,7 @@ template:
     containers:
     - name: runner
       image: ghcr.io/ben-hawks/acord-dac-cicd/acord-dac-cicd:v2023.2
-      command: ["/home/runner/run.sh"]
+      command: ["/tini", "--", "/home/runner/run.sh"]
       env:
         - name: LD_PRELOAD
           value: /lib/x86_64-linux-gnu/libudev.so.1

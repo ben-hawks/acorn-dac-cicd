@@ -64,7 +64,7 @@ WORKDIR /home/${USERNAME}
 
 
 RUN echo "source /venv/bin/activate" >> ~/.bashrc
-RUN echo "source /opt/Xilinx/petalinux/v2023.2/settings.sh" > ~/.bashrc
+RUN echo "source /opt/Xilinx/Petalinux/2023.2/settings.sh" > ~/.bashrc
 RUN echo "source /opt/Xilinx/Vitis/2023.2/settings64.sh" > ~/.bashrc
 RUN echo "source /opt/Xilinx/Vivado/2023.2/settings64.sh" > ~/.bashrc
 RUN cat ~/.bashrc
