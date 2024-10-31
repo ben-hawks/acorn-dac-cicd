@@ -9,22 +9,12 @@ spec:
     spec:
       containers:
       - name: acord-dac-cicd-2023-2
-        image:  ghcr.io/ben-hawks/acord-dac-cicd/acord-dac-cicd:v2023.2
+        image:  adregistry.fnal.gov/dac/acorn-dac-cicd:v2023.2
         terminationMessagePolicy: FallbackToLogsOnError
         env:
           - name: LD_PRELOAD
             value: /lib/x86_64-linux-gnu/libudev.so.1
-        command: ["/tini", "--", "/bin/bash"]
-        args:
-          - -l
-          - -c
-          - >-
-              cat /home/runner/.bashrc &&
-              source /venv/bin/activate && 
-              echo "activated venv" &&
-              source /home/runner/.bashrc &&
-              echo "Setup Vitis, running job..." &&
-              source /opt/Xilinx/zCCM_fw/firmware/targets/test_kv260/CreatePetalinuxProject.sh
+        command: ["sh","-l", "-c", "echo 'Interactive Pod, waiting for login' && sleep infinity"]
         volumeMounts:
         - name: amd-xilinx-tools
           mountPath: /opt/Xilinx
@@ -50,4 +40,6 @@ spec:
           sizeLimit: 5Gi
       imagePullSecrets:
         - name: bhawks-dac-robot
+      restartPolicy:
+        OnFailure
   backoffLimit: 5
