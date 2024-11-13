@@ -75,6 +75,9 @@ RUN sudo apt-get update -y && \
     ghdl gtkwave git-lfs && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/*
+	
+#create symlink for tclsh
+RUN ln -s /usr/bin/tclsh8.6 /usr/bin/tclsh
 
 # Install GitHub CLI
 COPY images/software/gh-cli.sh gh-cli.sh
@@ -110,5 +113,5 @@ RUN sudo chmod +x /tini
 
 USER $USERNAME
 
-SHELL ["/bin/bash", "-c", "-l"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c", "-l"]
 ENTRYPOINT source /venv/bin/activate &&
