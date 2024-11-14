@@ -6,7 +6,7 @@ RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/downloa
     && bash Miniforge3-$(uname)-$(uname -m).sh -b -p /opt/conda \
     && source "/opt/conda/etc/profile.d/conda.sh" \
     && echo "export PATH=/opt/conda/bin:$PATH" > /etc/profile.d/conda.sh \
-USER xilinx
+USER runner
 ENV PATH=/opt/conda/bin:$PATH
 #setups stuff
 RUN echo "source activate base" > ~/.bashrc
@@ -72,10 +72,22 @@ RUN cat ~/.bashrc
 
 RUN sudo apt-get update -y && \
     sudo apt-get install --no-install-recommends -y \
-    ghdl gtkwave git-lfs && \
+    git-lfs && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/*
-	
+
+#Build + Install GHDL 3.0.0
+RUN echo 'Installing GHDL ...' \
+    sudo apt update \
+    sudo apt install -y git make gnat zlib1g-dev \
+    git clone https://github.com/ghdl/ghdl ghdl-build -b v3.0.0 \
+    cd ghdl-build \
+    ./configure --prefix=/usr/local \
+    make -j$(nproc) \
+    sudo make install \
+    cd ../ \
+    echo 'Done!'
+
 #create symlink for tclsh
 RUN ln -s /usr/bin/tclsh8.6 /usr/bin/tclsh
 
