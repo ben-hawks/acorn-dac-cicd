@@ -72,20 +72,20 @@ RUN cat ~/.bashrc
 
 RUN sudo apt-get update -y && \
     sudo apt-get install --no-install-recommends -y \
-    git-lfs && \
-    sudo apt-get clean && \
-    sudo rm -rf /var/lib/apt/lists/*
+    git-lfs
 
 #Build + Install GHDL 3.0.0
-RUN echo 'Installing GHDL ...' \
-    sudo apt update \
-    sudo apt install -y git make gnat zlib1g-dev \
-    git clone https://github.com/ghdl/ghdl ghdl-build -b v3.0.0 \
-    cd ghdl-build \
-    ./configure --prefix=/usr/local \
-    make -j$(nproc) \
-    sudo make install \
-    cd ../ \
+RUN echo 'Installing GHDL ...' && \
+    sudo apt update && \
+    sudo apt install -y git make gnat zlib1g-dev && \
+    git clone https://github.com/ghdl/ghdl ghdl-build -b v3.0.0 && \
+    cd ghdl-build && \
+    ./configure --prefix=/usr/local && \
+    make -j$(nproc) && \
+    sudo make install && \
+    cd ../ && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* && \
     echo 'Done!'
 
 #create symlink for tclsh
